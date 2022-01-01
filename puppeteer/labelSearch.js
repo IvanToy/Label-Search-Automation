@@ -7,8 +7,8 @@ const message = require("./message.js");
 const labelSearch = async () => {
   const browser = await puppeteer.launch({
     slowMo: 250,
-    executablePath:
-      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    headless: false,
+    executablePath: "Path to chrome/chromium",
   });
   let pages = await browser.pages();
   const page = pages[0];
@@ -17,7 +17,6 @@ const labelSearch = async () => {
   try {
     await page.goto("https://www.ebay.com/sh/lst/active", {
       waitUntil: "networkidle2",
-      slowMo: 150,
     });
 
     await page.select("select#primaryFilter", "listingSKU");
@@ -39,7 +38,10 @@ const labelSearch = async () => {
 
       await page.keyboard.press("Enter");
 
-      await page.waitForTimeout(1500);
+      await page.waitForSelector(
+        "#shlistings-cntr > div.summary > div:nth-child(1) > h2 > span.result-range",
+        { visible: true }
+      );
 
       let exists = await page.evaluate(() => {
         return document.querySelector(
@@ -78,8 +80,6 @@ const labelSearch = async () => {
       }
 
       if (char === 91) break;
-
-      await sleep(2000);
     }
     await browser.close();
     return foundLabels;
@@ -87,9 +87,5 @@ const labelSearch = async () => {
     console.log(error);
   }
 };
-
-async function sleep(milliseconds) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
 
 module.exports = labelSearch;

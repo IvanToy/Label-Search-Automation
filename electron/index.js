@@ -17,11 +17,8 @@ ipcRenderer.on("message", (event, message) => {
   if (!message.includes("not")) {
     document.querySelector(".message-display").style.color = "green";
     document.querySelector(".message-display").innerText = `${message}`;
-  } else if (message.includes("not")) {
+  } else {
     document.querySelector(".message-display").style.color = "red";
     document.querySelector(".message-display").innerText = ` ${message}`;
-  } else {
-    document.querySelector(".message-display").style.color = "blue";
-    document.querySelector(".message-display").innerText = `${message}`;
   }
 });

@@ -13,8 +13,8 @@ const labelPrint = async (foundLabels) => {
       "--disable-features=IsolateOrigins,site-per-process",
     ],
     slowMo: 250,
-    executablePath:
-      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    headless: false,
+    executablePath: "Path to chrome/chromium",
   });
   const page = await browser.newPage();
 

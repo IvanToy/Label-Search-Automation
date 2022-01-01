@@ -24,7 +24,9 @@ const createWindow = () => {
   });
 };
 
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
+});
 
 ipcMain.on("search-start", (event, args) => {
   main();
@@ -33,4 +35,4 @@ function displayMessage(message) {
   mainWindow.webContents.send("message", message);
 }
 
-process.platform === "win32" && Menu(null);
+process.platform === "win32" && Menu.setApplicationMenu(null);
