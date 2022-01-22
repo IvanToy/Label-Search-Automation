@@ -8,7 +8,7 @@ const labelSearch = async () => {
   const browser = await puppeteer.launch({
     slowMo: 250,
     headless: false,
-    executablePath: "Path to chrome/chromium",
+    // executablePath: "Path to chrome/chromium",
   });
   let pages = await browser.pages();
   const page = pages[0];
@@ -33,14 +33,14 @@ const labelSearch = async () => {
       await page.type(
         "#filters > form > div:nth-child(3) > div > div > div.tertiary-filter-wrap > div > div > input[type=text]",
         label,
-        { delay: 150 }
+        { delay: 100 }
       );
 
       await page.keyboard.press("Enter");
 
       await page.waitForSelector(
         "#shlistings-cntr > div.summary > div:nth-child(1) > h2 > span.result-range",
-        { visible: true }
+        { visible: true, timeout: 0 }
       );
 
       let exists = await page.evaluate(() => {

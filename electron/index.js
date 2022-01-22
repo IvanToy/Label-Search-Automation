@@ -1,24 +1,24 @@
 const { ipcRenderer } = require("electron");
 
-const button = document.querySelector(".start-btn");
-document.querySelector(".underline").style.display = "none";
+const button = document.querySelector(".btn");
 
-const startHandle = () => {
-  document.querySelector(".message-display").style.color = "blue";
+const onClickHandler = () => {
+  document.querySelector(".message-display__box").style.display =
+    "inline-block";
+  document.querySelector(".message-display").style.color = "#FEFCD7";
   document.querySelector(".message-display").innerText = "Search started";
-  document.querySelector(".underline").style.display = "inline-block";
   ipcRenderer.send("search-start");
 };
 
-button.addEventListener("click", startHandle);
+button.addEventListener("click", onClickHandler);
 
 ipcRenderer.on("message", (event, message) => {
   document.querySelector(".message-display").innerText = "";
   if (!message.includes("not")) {
-    document.querySelector(".message-display").style.color = "green";
+    document.querySelector(".message-display").style.color = "#A6CB45";
     document.querySelector(".message-display").innerText = `${message}`;
   } else {
-    document.querySelector(".message-display").style.color = "red";
+    document.querySelector(".message-display").style.color = "#FC6C85";
     document.querySelector(".message-display").innerText = ` ${message}`;
   }
 });

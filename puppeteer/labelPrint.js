@@ -14,7 +14,7 @@ const labelPrint = async (foundLabels) => {
     ],
     slowMo: 250,
     headless: false,
-    executablePath: "Path to chrome/chromium",
+    // executablePath: "Path to chrome/chromium",
   });
   const page = await browser.newPage();
 
