@@ -60,6 +60,9 @@ const labelPrint = async (foundLabels) => {
       "#ReactTabbedPanelMenuPageContainer > div:nth-child(2) > div:nth-child(1) > div > button"
     );
     message("Printing done");
+
+    await page.waitForTimeout(10000);
+
     browser.close();
   } catch (error) {
     browser.close();
