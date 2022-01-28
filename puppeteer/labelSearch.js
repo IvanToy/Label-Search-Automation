@@ -7,9 +7,9 @@ const foundLabels = [];
 
 const labelSearch = async () => {
   const cookies = await chrome.getCookiesPromised(
-    "https://www.ebay.com",
+    "https://www.example.com",
     "puppeteer",
-    "Default"
+    "Profile"
   );
 
   const browser = await puppeteer.launch({
