@@ -1,10 +1,17 @@
 const puppeteer = require("puppeteer");
-const fs = require("fs");
+const chrome = require("chrome-cookies-secure");
 
-const cookie = require("./cookie.json");
 const message = require("./message.js");
 
+const foundLabels = [];
+
 const labelSearch = async () => {
+  const cookies = await chrome.getCookiesPromised(
+    "https://www.ebay.com",
+    "puppeteer",
+    "Default"
+  );
+
   const browser = await puppeteer.launch({
     slowMo: 250,
     headless: false,
@@ -13,7 +20,7 @@ const labelSearch = async () => {
   let pages = await browser.pages();
   const page = pages[0];
 
-  await page.setCookie(...cookie);
+  await page.setCookie(...cookies);
   try {
     await page.goto("https://www.ebay.com/sh/lst/active", {
       waitUntil: "networkidle2",
@@ -25,7 +32,6 @@ const labelSearch = async () => {
     let end = 200;
     let code = 65;
     let char = String.fromCharCode(code);
-    let foundLabels = [];
 
     while (start <= end) {
       let label = `${char}${start}`;
@@ -84,7 +90,9 @@ const labelSearch = async () => {
     await browser.close();
     return foundLabels;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  } finally {
+    return foundLabels;
   }
 };
 
