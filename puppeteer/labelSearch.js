@@ -90,8 +90,16 @@ const labelSearch = async () => {
     await browser.close();
     return foundLabels;
   } catch (error) {
-    console.error(error);
+    message(
+      `Something went wrong: ${error.message}, found ${foundLabels.length} ${
+        foundLabels.length === 1 ? "label" : "labels"
+      }`
+    );
   } finally {
+    if (foundLabels.length === 0) {
+      return ["Nothing was found"];
+    }
+    browser.close();
     return foundLabels;
   }
 };

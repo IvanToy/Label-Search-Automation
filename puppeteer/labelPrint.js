@@ -66,7 +66,7 @@ const labelPrint = async (foundLabels) => {
     browser.close();
   } catch (error) {
     browser.close();
-    console.error(error);
+    message(`Something went wrong: ${error.message}`);
   }
 };
 
