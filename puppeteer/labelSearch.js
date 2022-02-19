@@ -7,7 +7,7 @@ const foundLabels = [];
 
 const labelSearch = async () => {
   const cookies = await chrome.getCookiesPromised(
-    "https://www.example.com",
+    "https:/www.example.com",
     "puppeteer",
     "Profile"
   );
