@@ -28,6 +28,14 @@ app.on("ready", () => {
   createWindow();
 });
 
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+});
+
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});
+
 ipcMain.on("search-start", (event, args) => {
   main();
 });
